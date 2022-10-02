@@ -1,0 +1,171 @@
+\documentclass[a4paper,10pt,norsk]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[norsk]{babel}
+\usepackage{amsmath,graphicx,varioref,verbatim,amsfonts,geometry}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[colorlinks]{hyperref}
+
+\setlength{\parindent}{0mm}
+\setlength{\parskip}{1.5mm}
+
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+
+\usepackage{listings}
+\lstset{
+	backgroundcolor=\color{lbcolor},
+	tabsize=4,
+	rulecolor=,
+	language=python,
+        basicstyle=\scriptsize,
+        upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+	numbers=left,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941}
+        }
+        
+\newcounter{subproject}
+\renewcommand{\thesubproject}{\alph{subproject}}
+\newenvironment{subproj}{
+\begin{description}
+\item[\refstepcounter{subproject}(\thesubproject)]
+}{\end{description}}
+
+%Lettering instead of numbering in different layers
+%\renewcommand{\labelenumi}{\alph{enumi}}
+\renewcommand{\thesubsection}{\alph{subsection}}
+
+%opening
+\title{MAT1120 - Oblig 1}
+\author{Emil Kvernevik}
+
+\begin{document}
+
+\maketitle
+
+%task 1
+\section{}
+
+\subsection{)}
+Coding a function that takes a matrix as input, and plots the corresponding eigencircles.
+\lstinputlisting{oppgave1a.py}
+
+%task 2
+\section{}
+
+\subsection{)}
+Coding a function that takes a matrix as input, and plots the corresponding eigencircles and eigenvalues.
+\lstinputlisting{oppgave2a.py}
+
+%task 3
+\section{}
+\subsection{)}
+Taking matrix A as input, and running the function, gives us the following plot.
+\begin{figure}[h!]
+        \centering 
+        \includegraphics[scale=0.9]{oppgave3a.png} 
+\end{figure}
+
+\subsection{)}
+Taking matrix B as input, and running the function, gives us the following plot.
+
+\begin{figure}[h!]
+        \centering 
+        \includegraphics[scale=0.9]{oppgave3b.png} 
+\end{figure}
+
+%task 3c
+\subsection{)}
+Taking matrix C (in this case a randomly generated $5 x 5$ matrix), and running the function, gives us the first plot on the next page.
+Here matrix C is,
+\begin{equation}
+    C =
+    \begin{bmatrix}
+    1 & 0 & 1 & 1 & 0\\
+    1 & 1 & 1 & 0 & 0\\
+    0 & 0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 0 & 0
+    \end{bmatrix}
+\end{equation}
+
+\begin{figure}[h!]
+        \centering 
+        \includegraphics[scale=0.9]{oppgave3c.png} 
+\end{figure}
+
+%task 3d
+\subsection{)}
+Running the function with a diagonal matrix with distinct numbers along the diagonal, gives us the second plot on the next page.
+
+\begin{figure}[h!]
+        \centering 
+        \includegraphics[scale=0.9]{oppgave3d.png} 
+\end{figure}
+
+Here, I used the diagonal matrix D,
+\begin{equation}
+    D =
+    \begin{bmatrix}
+    1 & 0 & 0 & 0\\
+    0 & 2 & 0 & 0\\
+    0 & 0 & 3 & 0\\
+    0 & 0 & 0 & 4
+    \end{bmatrix}
+\end{equation}
+Since the matrix only has elements along the diagonal, the radii of the eigencircles all equal $0$. The eigenvalues however, do not equal zero, and are the only things plotted. This is due to the \emph{diagonalization theorem}, which states that all diagonal matrices with $\lambda_1$,...,$\lambda_n$ along the diagonal, have eigenvalues $\lambda_1$,...,$\lambda_n$.\\
+
+\section{}
+\subsection{)}
+Based on the observations from task $\mathbf{3}$, I think the eigenvalues are located in the eigencircles or in the union of the eigencircles, following \emph{Gershgorin's circle theorem}.
+
+\section{}
+\subsection{)}
+Assume there exists an eigenvector $\mathbf{x\neq{0}}$ such that $A\mathbf{x}=0$. This implies $\sum_{j=1}^n a_{ij}x_j = 0, for all i \in \{1, \ldots, n\}$. Let $x_k = \|x\|_\infty\neq{0}$, i.e. $\mathbf{x_k}$ be the largest entry of x by absolute value. We have then,
+\begin{equation*}
+    0 = \sum_{j=1}^n a_{kj}x_j \implies a_{kk}x_k = -\sum_{j\ne k} a_{kj}x_j \implies a_{kk} = -\sum_{j\ne k} a_{kj}\frac{x_j}{x_k}
+\end{equation*}
+If we now take the absolute value, we get,
+\begin{equation*}
+    |a_{kk}| = \left|\sum_{j\ne k} a_{kj}\frac{x_j}{x_k}\right| \leq \sum_{j\ne k} |a_{kj}|\underbrace{\left|\frac{x_j}{x_k}\right|}_{\leq 1} \leq \sum_{j\ne k} |a_{kj}|,
+\end{equation*}
+Which is a contradiction since $\mathbf{A}$ is diagonally dominant. This means that $0\notin \sigma(A)$, hence $\mathbf{A}$ is invertible.
+
+\section{}
+\subsection{)}
+One example of a $\mathbf{2 x 2}$ matrix that is invertible, but not diagonally dominant, is
+
+\begin{equation*}
+    A =
+    \begin{pmatrix}
+        0 & 1\\
+        -1 & 0
+    \end{pmatrix}
+\end{equation*}
+ which is invertible since $\mathbf{det(A) = 1 \neq{0}}$. The characteristic equation is: $\mathbf{\lambda^{\,2} + 1 = 0}$, so there are no real eigenvalues and the matrix is not diagonalizable.
+\\
+\\
+Another example would be any matrix,
+\begin{equation*}
+    A =
+    \begin{pmatrix}
+        1 & b\\
+        0 & 1
+    \end{pmatrix}
+\end{equation*}
+where $\mathbf{b}\neq{0}$. The eigenvalue 1 appears twice here, but the eigenspace only has 1 dimension.
+
+\end{document}
